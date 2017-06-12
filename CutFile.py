@@ -14,16 +14,13 @@ def cut_file(file_data_list):
     cutted_data_list = []
     for line_data in file_data_list:
         word_list = jb.cut(line_data, cut_all = False)
-        cutted_data_list.append(' '.join(word_list))
+        cutted_data_list.append(' '.join(word_list).encode('utf-8'))
 
-    print cutted_data_list
     return cutted_data_list
 
 def write_file(file_data_list, cutted_file_name):
-    with open(cutted_file_name, 'w') as f:
+    with open(cutted_file_name, 'wb') as f:
         f.writelines(file_data_list)
-        # for line in file_data_list:
-        #     f.writelines(line)
     return cutted_file_name
 
 def read_file_name():
