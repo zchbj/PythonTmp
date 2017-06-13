@@ -14,6 +14,7 @@
 # ==============================================================================
 """Basic word2vec example."""
 
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -32,9 +33,11 @@ import tensorflow as tf
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
+from matplotlib.font_manager import FontProperties
+font=FontProperties(fname=r'/Library/fonts/Songti.ttc',size=14)
+
 
 # Step 1: Download the data.
-
 
 filename = 'news.txt.cutted'
 # Read the data into a list of strings.
@@ -51,6 +54,7 @@ vocabulary = read_data(filename)
 print('Data size', len(vocabulary))
 
 # Step 2: Build the dictionary and replace rare words with UNK token.
+# vocabulary_size = 10000
 vocabulary_size = 10000
 
 
@@ -178,6 +182,7 @@ with graph.as_default():
   init = tf.initialize_all_variables()
 
 # Step 5: Begin training.
+# num_steps = 100001
 num_steps = 100001
 
 with tf.Session(graph=graph) as session:
@@ -226,12 +231,13 @@ def plot_with_labels(low_dim_embs, labels, filename='tsne.png'):
   for i, label in enumerate(labels):
     x, y = low_dim_embs[i, :]
     plt.scatter(x, y)
-    plt.annotate(label,
+    plt.annotate(label.decode('utf-8'),
                  xy=(x, y),
                  xytext=(5, 2),
                  textcoords='offset points',
                  ha='right',
-                 va='bottom')
+                 va='bottom',
+                 fontproperties=font)
 
   plt.savefig(filename)
 
