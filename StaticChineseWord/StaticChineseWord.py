@@ -39,7 +39,7 @@ font=FontProperties(fname=r'/Library/fonts/Songti.ttc',size=14)
 
 # Step 1: Download the data.
 
-filename = 'news.txt.cutted'
+filename = './StaticChineseWord/news.txt.cutted'
 # Read the data into a list of strings.
 def read_data(filename):
   """Extract the first file enclosed in a zip file as a list of words."""
