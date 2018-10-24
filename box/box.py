@@ -26,7 +26,7 @@ def getArray(list, maxLen, paddingLeft):
         nextValueIndex = getFirstValueIndex(list, nextMaxValue)
 
     nextList.extend(list) # 没处理完的列表也放入到下次迭代中去
-    if  len(nextList) > 0:
+    if len(nextList) > 0:
         # 多余的数列不为空，递归调用求解
         subResultArray = getArray(nextList, maxLen, paddingLeft)
 
