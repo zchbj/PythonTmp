@@ -12,19 +12,19 @@ def get_array(industries, max_len, padding_left):
     next_value_index = 0  # 第一次默认从第一个位置开始
     while next_value_index < len(industries):
         rows[row_index].append(industries[next_value_index])  # 把获取到符合条件的值插入到最短行的队尾
-        del industries[next_value_index]  # 待处理队列中删除符合条件的值
+        industries.pop(next_value_index)  # 待处理队列中删除符合条件的值
 
         # 进入下一轮
-        row_index = get_sum_min_row_index(rows, padding_left)
-        # 可用长度=最大长度-已用长度-数字个数*间隔长度
-        next_max_value = max_len - sum(rows[row_index]) - len(rows[row_index])*padding_left
-        next_value_index = get_first_value_index(industries, next_max_value)
+        row_index = get_sum_min_row_index(rows, padding_left)  # 获取下个空余最多的行
+        next_max_value = max_len - sum(rows[row_index]) - len(rows[row_index])*padding_left  # 计算此行剩余可用长度
+        next_value_index = get_first_value_index(industries, next_max_value)  # 从行业长度列表中获取最大数字
 
+    # 多余的数列不为空，递归调用求解
     if len(industries) > 0:
-        # 多余的数列不为空，递归调用求解
         sub_rows = get_array(industries, max_len, padding_left)
         if len(sub_rows) > 0:
-            rows.extend(sub_rows)
+            rows.extend(sub_rows)  # 迭代结果追加到本次计算结果后面
+
     return rows
 
 
@@ -45,11 +45,12 @@ def magic(industries, column_max_len=30, padding_left=2):
         print "单个长度超过行长度限制"
         return
     industries.sort(reverse=True)
+    result = get_array(industries[:], column_max_len, padding_left)
+    result.sort(key=lambda a: sum(a)+len(a)*2, reverse=True)  # 根据结果的行的长度倒排序
+
     print '排序后列表：'
     print industries
     print '列表之和：', sum(industries), '; 行长度限制：', column_max_len, '; 间距：', padding_left
-    result = get_array(industries, column_max_len, padding_left)
-    result.sort(key=lambda a: sum(a)+len(a)*2, reverse=True)  # 根据结果的行的长度倒排序
     print '结果如下:'
     print result
     print '1234567890'*8
@@ -75,5 +76,7 @@ def main():
     magic(industries)
     industries = [2, 18, 4, 8, 12, 23, 13, 1, 2, 4, 6, 7, 8, 9, 10, 2, 2, 18, 4, 8, 12, 23, 13, 1, 2, 4, 6, 7, 8, 9]
     magic(industries)
+    return
+
 
 main()
