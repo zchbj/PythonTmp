@@ -48,11 +48,9 @@ def magic(industries, column_max_len=30, padding_left=2):
     result = get_array(industries[:], column_max_len, padding_left)
     result.sort(key=lambda a: sum(a)+len(a)*2, reverse=True)  # 根据结果的行的长度倒排序
 
-    print '排序后列表：'
-    print industries
-    print '列表之和：', sum(industries), '; 行长度限制：', column_max_len, '; 间距：', padding_left
-    print '结果如下:'
-    print result
+    print '排序后列表：%s' % industries
+    print '列表之和：%d; 行长度限制：%d; 间距：%d' % (sum(industries), column_max_len, padding_left)
+    print '结果如下: %s' % result
     print '1234567890'*8
     for rowIndex in range(len(result)):
         x = ''
