@@ -19,7 +19,9 @@ from package_my_print.print_three import *
 
 
 print_one.print_string('Hello, world!')
+print 'PI:', print_one.PI
 print_two.print_number(123)
 print 'print_one all functions:', dir(print_one)
 print print_one.__file__
+print 'PI: %f from print_three.' % PI
 a()
